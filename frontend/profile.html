@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Settings - Forsa Campus</title>
+
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+
+<body>
+
+  <!-- BACK BUTTON -->
+  <a href="home.html" class="back-btn">← Return</a>
+
+  <!-- BACKGROUND -->
+  <div class="bg"></div>
+
+  <div class="container">
+
+    <div class="card">
+
+      <h1 class="title">Profile Settings</h1>
+
+      <div class="user-header">
+        <div class="avatar-wrapper">
+          <img id="profileAvatar" class="avatar" width="120" height="120" />
+          <span class="avatar-ring"></span>
+        </div>
+
+        <div class="user-info">
+          <h2 id="userName">Loading...</h2>
+          <p id="userEmail"></p>
+          <span id="userRole"></span>
+        </div>
+      </div>
+
+      <form id="profileForm">
+        <div id="dynamicFields"></div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary">Save Changes</button>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+  <script src="js/profile.js"></script>
+</body>
+</html>
