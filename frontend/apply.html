@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Postuler - FORSA CAMPUS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <h1 class="title">FORSA CAMPUS</h1>
+            <p class="subtitle">Postuler à une offre</p>
+        </div>
+
+        <form id="applyForm" novalidate>
+            <div class="field">
+                <label for="offre_id">ID de l'offre</label>
+                <input id="offre_id" type="number" placeholder="1" required>
+            </div>
+
+           <div class="field">
+    <label for="cv">Upload CV (PDF)</label>
+    <input id="cv" type="file" accept=".pdf,.doc,.docx" required>
+</div>
+
+            <p id="msg" class="msg"></p>
+
+            <button type="submit" class="btn-login">
+                <span class="btn-text">Envoyer ma candidature</span>
+            </button>
+        </form>
+
+        <p style="text-align:center; margin-top:1rem">
+            <a href="candidatures.html">Voir mes candidatures</a>
+        </p>
+    </div>
+
+    <script src="js/apply.js"></script>
+</body>
+</html>

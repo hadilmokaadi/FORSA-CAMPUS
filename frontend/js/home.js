@@ -115,4 +115,23 @@ if (searchInput && resultsBox) {
             resultsBox.style.display = "none";
         }
     });
+    // ─────────────────────────────
+// USER AUTH
+// ─────────────────────────────
+const user = JSON.parse(localStorage.getItem("user"));
+
+if (!user) {
+    window.location.href = "login.html";
+}
+
+// ─────────────────────────────
+// ROLE-BASED REDIRECT
+// ─────────────────────────────
+if (user.role === "etudiant") {
+    window.location.href = "feed.html";
+} else if (user.role === "entreprise") {
+    window.location.href = "company-dashboard.html";
+}
+
+const nom = (user.nom || "").trim();
 }

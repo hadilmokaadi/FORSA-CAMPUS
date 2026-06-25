@@ -32,9 +32,16 @@ def create_app():
     # blueprints
     from routes.auth import auth_bp
     from routes.profile import profile_bp
+    from routes.candidatures import candidatures_bp
+    from routes.parcours import parcours_bp
+    from routes.posts import posts_bp
+   
 
     app.register_blueprint(auth_bp)
+    app.register_blueprint(candidatures_bp)
     app.register_blueprint(profile_bp)
+    app.register_blueprint(parcours_bp)
+    app.register_blueprint(posts_bp)
 
     return app
 
