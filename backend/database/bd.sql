@@ -29,10 +29,15 @@ CREATE TABLE student_profiles (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ENTERPRISE PROFILE
+-- -- ==========================================
+-- ENTERPRISE PROFILES
+-- ==========================================
+
 CREATE TABLE enterprise_profiles (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT UNIQUE,
+
+    user_id INT UNIQUE NOT NULL,
+
     company_name VARCHAR(255),
     sector VARCHAR(255),
     website VARCHAR(255),
@@ -40,8 +45,39 @@ CREATE TABLE enterprise_profiles (
     address VARCHAR(255),
     description TEXT,
 
-    -- NEW: company logo
     logo VARCHAR(255),
 
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+
+-- ==========================================
+-- INTERNSHIPS
+-- ==========================================
+
+CREATE TABLE internships (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    enterprise_id INT NOT NULL,
+
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+
+    location VARCHAR(255),
+    duration VARCHAR(100),
+
+    salary VARCHAR(100),
+    requirements TEXT,
+
+    status ENUM('open', 'closed')
+        DEFAULT 'open',
+
+    created_at TIMESTAMP
+        DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (enterprise_id)
+        REFERENCES enterprise_profiles(id)
+        ON DELETE CASCADE
 );

@@ -1,3 +1,4 @@
+
 class Config:
     MYSQL_HOST = "localhost"
     MYSQL_USER = "root"
@@ -10,7 +11,5 @@ class Config:
     # 🍪 SESSION CONFIG 
     SESSION_COOKIE_SAMESITE = "Lax"
     SESSION_COOKIE_SECURE = False  
-
-    
     SESSION_COOKIE_HTTPONLY = True
     PERMANENT_SESSION_LIFETIME = 3600  

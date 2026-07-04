@@ -3,6 +3,7 @@ from flask_mysqldb import MySQL
 from flask_cors import CORS
 from config import Config
 
+
 mysql = MySQL()
 
 def create_app():
@@ -32,9 +33,11 @@ def create_app():
     # blueprints
     from routes.auth import auth_bp
     from routes.profile import profile_bp
+    from routes.internship_routes import internship_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(profile_bp)
+    app.register_blueprint(internship_bp)
 
     return app
 

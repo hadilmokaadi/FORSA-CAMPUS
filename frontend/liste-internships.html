@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORSA Campus - Premium Space</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-global: #f8fafc;
+            --primary-glow: #6366f1;
+            --primary-dark: #4f46e5;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        body {
+            background-color: var(--bg-global);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+        }
+
+        /* Modern Glassy Navbar */
+        .navbar-premium {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Gradient Hero Badge */
+        .space-badge {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(79, 70, 229, 0.1));
+            color: var(--primary-dark);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            background: linear-gradient(135deg, #0f172a 30%, #4f46e5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Elegant Floating Search Box */
+        .search-wrapper-premium {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 8px 10px 8px 24px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .search-wrapper-premium:focus-within {
+            border-color: var(--primary-glow);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+            transform: translateY(-2px);
+        }
+        .search-premium-input {
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
+            width: 100%;
+        }
+        .search-premium-input::placeholder {
+            color: #94a3b8;
+        }
+
+        /* Bento-Style Sleek Card */
+        .premium-job-card {
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.015);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .premium-job-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 35px rgba(99, 102, 241, 0.05);
+        }
+
+        /* Glow effect corner decoration */
+        .premium-job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-glow), var(--primary-dark));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .premium-job-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Company Unique Premium Box */
+        .premium-logo-box {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .premium-logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 4px;
+        }
+        .premium-logo-fallback {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-glow), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Minimal Meta Items */
+        .meta-pill {
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Sophisticated Status Badges */
+        .badge-premium-active {
+            background: #f0fdf4;
+            color: #16a34a;
+            font-weight: 700;
+            font-size: 0.75rem;
+            border: 1px solid #bbf7d0;
+            padding: 6px 14px;
+            border-radius: 30px;
+        }
+        .badge-premium-closed {
+            background: #fef2f2;
+            color: #dc2626;
+            font-weight: 700;
+            font-size: 0.75rem;
+            border: 1px solid #fecaca;
+            padding: 6px 14px;
+            border-radius: 30px;
+        }
+
+        /* Creative Action Button */
+        .btn-action-premium {
+            background: var(--text-main);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 10px 24px;
+            border-radius: 16px;
+            border: none;
+            transition: all 0.2s ease;
+        }
+        .btn-action-premium:hover {
+            background: var(--primary-dark);
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+        }
+
+        .premium-salary-tag {
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 1.15rem;
+            letter-spacing: -0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Transparent Premium Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-premium shadow-sm mb-4">
+        <div class="container">
+           <a class="navbar-brand d-flex align-items-end" href="dashboard-recruteur.html" style="padding: 0; gap: 0; text-decoration: none;">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="54" height="54" style="display: block; margin-right: 2px;">
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#3b82f6" />
+                            <stop offset="100%" stop-color="#1d4ed8" />
+                        </linearGradient>
+                    </defs>
+                    <rect x="10" y="10" width="80" height="80" rx="24" fill="url(#logoGrad)" />
+                    <polygon points="50,30 68,40 68,60 50,70 32,60 32,40" fill="none" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>
+                    <circle cx="50" cy="50" r="5" fill="#ffffff" />
+                </svg>
+                
+                <span style="font-family: 'Cinzel', 'Playfair Display', 'Times New Roman', serif; font-size: 1.05rem; color: #0f172a; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.1; margin-bottom: 4px; margin-left: 4px;">FORSA CAMPUS</span>
+            </a>
+            <span class="space-badge">STUDENT PORTAL</span>
+        </div>
+    </nav>
+
+    <!-- Main Dynamic Space -->
+    <div class="container" style="max-width: 940px; margin-bottom: 120px;">
+        
+        <!-- Interactive Creative Header -->
+        <div class="text-center my-5 py-3">
+            <h2 class="hero-title">Find Your Dream Internship</h2>
+            <p class="text-muted fw-medium mt-2" style="font-size: 1.05rem;">Discover exclusive opportunities mapped dynamically by technology leaders.</p>
+            
+            <div class="row justify-content-center mt-4 pt-2">
+                <div class="col-md-10 col-lg-9">
+                    <div class="search-wrapper-premium d-flex align-items-center">
+                        <i class="fa-solid fa-search text-muted me-3 fs-5"></i>
+                        <input type="text" id="searchQuery" class="search-premium-input py-2" placeholder="Search by technology, company name, role..." oninput="searchInternships()">
+                        <button class="btn-action-premium rounded-pill ms-2 px-4" onclick="searchInternships()">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Separator Line -->
+        <div class="d-flex align-items-center gap-3 my-5">
+            <span class="text-muted small fw-bold text-uppercase tracking-wider" style="font-size: 0.75rem; letter-spacing: 1px;">Open Catalog</span>
+            <div class="flex-grow-1" style="height: 1px; background: rgba(226,232,240,0.7)"></div>
+        </div>
+
+        <!-- Dynamic Output Grid System -->
+        <div class="row g-4" id="allInternshipsCards">
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border text-indigo" role="status" style="color: #6366f1; width: 2.2rem; height: 2.2rem;">
+                    <span class="visually-hidden">Syncing database...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Connector -->
+    <script src="js/internships.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof loadAllInternships === "function") {
+                loadAllInternships();
+            }
+        });
+    </script>
+</body>
+</html>
