@@ -56,7 +56,7 @@ function loadMyOffers() {
         data.forEach(offer => {
             const firstLetter = offer.title ? offer.title.charAt(0).toUpperCase() : 'I';
             
-            // 🟢🔴 Logic bch nfar9ou bin Active (Green) w Closed (Red)
+            // 🟢🔴 Active (Green) et Closed (Red)
             let statusText = '';
             let badgeClass = '';
 

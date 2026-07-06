@@ -18,8 +18,15 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const result = await res.json();
 
     if (res.ok) {
+        // حفظ بيانات المستخدم بما فيها الـ role الذي يرجعه السيرفر
         localStorage.setItem("user", JSON.stringify(result));
-        window.location.href = "home.html";
+        
+        // التوجيه الذكي بناءً على الدور (result.role هو الدور الذي يرجعه الخادم)
+        if (result.role === "entreprise") {
+            window.location.href = "dashboard-recruteur.html"; // الواجهة اللي بعثتها لي (Workspace Monitor)
+        } else {
+            window.location.href = "home.html"; // أو الواجهة الخاصة بالطالب
+        }
     } else {
         document.getElementById("msg").innerText = result.message;
     }

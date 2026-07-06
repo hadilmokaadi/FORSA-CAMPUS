@@ -6,7 +6,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
         prenom: document.getElementById("prenom").value,
         email: document.getElementById("email").value,
         password: document.getElementById("password").value,
-        role: document.getElementById("role").value
+        role: document.getElementById("role").value 
     };
 
     const res = await fetch("http://127.0.0.1:5000/register", {
@@ -19,5 +19,14 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
 
     const result = await res.json();
 
-    document.getElementById("msg").innerText = result.message;
+    if (res.ok) {
+        if (data.role === "entreprise") {
+            window.location.href = "dashboard-recruteur.html"; 
+        } else {
+            window.location.href = "dashboard-etudiant.html"; 
+        }
+    } else {
+        
+        document.getElementById("msg").innerText = result.message;
+    }
 });

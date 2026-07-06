@@ -81,3 +81,72 @@ CREATE TABLE internships (
         REFERENCES enterprise_profiles(id)
         ON DELETE CASCADE
 );
+
+-- ==========================================
+-- CV
+-- ==========================================
+
+CREATE TABLE cv (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    nom_fichier VARCHAR(255),
+    chemin_fichier VARCHAR(255),
+    date_upload DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- ==========================================
+-- POSTS
+-- ==========================================
+
+CREATE TABLE posts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    content TEXT,
+    image VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- ==========================================
+-- POSTS COMMENTS
+-- ==========================================
+
+CREATE TABLE post_comments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    post_id INT NOT NULL,
+    user_id INT NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- ==========================================
+-- POSTS LIKES
+-- ==========================================
+
+CREATE TABLE post_likes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    post_id INT NOT NULL,
+    user_id INT NOT NULL,
+    reaction_type VARCHAR(20) DEFAULT 'like',
+    UNIQUE KEY unique_like (post_id, user_id),
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- ==========================================
+-- PARCOURS UNIVERSITAIRE
+-- ==========================================
+
+CREATE TABLE parcours_universitaire (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    universite VARCHAR(255),
+    etablissement VARCHAR(255),
+    specialite VARCHAR(255),
+    date_entree DATE,
+    date_sortie DATE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+)

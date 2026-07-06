@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mon parcours - Forsa Campus</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
+    <style>
+        .dash-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 24px;
+            max-width: 1100px;
+            margin: 24px auto;
+            padding: 0 16px;
+            align-items: start;
+        }
+
+        @media (max-width: 860px) {
+            .dash-layout { grid-template-columns: 1fr; }
+        }
+
+        .panel {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 1px 3px rgba(20, 20, 43, 0.08);
+            padding: 28px 28px 32px;
+            margin-bottom: 20px;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
+
+        .panel-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #14142b;
+            margin: 0;
+        }
+
+        .panel-header p {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13.5px;
+            color: #6b7280;
+            margin: 4px 0 0;
+        }
+
+        .btn-add {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #3b6dff, #1d4ed8);
+            border: none;
+            border-radius: 10px;
+            padding: 10px 18px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn-add:hover { opacity: 0.92; }
+
+        .parcours-empty {
+            text-align: center;
+            padding: 36px 20px;
+            color: #8b8fa3;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .timeline { list-style: none; padding: 0; margin: 0; position: relative; }
+
+        .timeline-item {
+            position: relative;
+            padding: 4px 0 24px 28px;
+            border-left: 2px solid #e7e9f5;
+        }
+
+        .timeline-item:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -7px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #3b6dff;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px #e7e9f5;
+        }
+
+        .timeline-card {
+            background: #fafbff;
+            border: 1px solid #eef0f9;
+            border-radius: 12px;
+            padding: 16px 18px;
+        }
+
+        .timeline-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .timeline-diplome {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            font-size: 15.5px;
+            color: #14142b;
+        }
+
+        .timeline-etab {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13.5px;
+            color: #4b4f6b;
+            margin-top: 2px;
+        }
+
+        .timeline-years {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12.5px;
+            color: #8b8fa3;
+            white-space: nowrap;
+            margin-top: 3px;
+        }
+
+        .timeline-desc {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13.5px;
+            color: #5a5e78;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        .timeline-actions { display: flex; gap: 6px; }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #9296ab;
+            padding: 4px;
+            border-radius: 6px;
+        }
+
+        .icon-btn:hover { color: #3b6dff; background: #eef2ff; }
+        .icon-btn.danger:hover { color: #e0405a; background: #fdeef0; }
+
+        /* CV box */
+        .cv-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fafbff;
+            border: 1px solid #eef0f9;
+            border-radius: 12px;
+            padding: 16px 18px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .cv-info { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #14142b; }
+        .cv-info span { display: block; font-size: 12.5px; color: #8b8fa3; margin-top: 3px; }
+
+        .cv-actions { display: flex; gap: 8px; }
+
+        .btn-cv-link {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #3b6dff;
+            background: #eef2ff;
+            border: none;
+            border-radius: 9px;
+            padding: 8px 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .cv-upload-label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #4b4f6b;
+            background: #f1f2f8;
+            border-radius: 9px;
+            padding: 8px 14px;
+            cursor: pointer;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(20, 20, 43, 0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 16px;
+        }
+
+        .modal-overlay.open { display: flex; }
+
+        .modal-box {
+            background: #fff;
+            border-radius: 14px;
+            width: 100%;
+            max-width: 460px;
+            padding: 26px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 19px;
+            margin: 0 0 18px;
+            color: #14142b;
+        }
+
+        .form-row { margin-bottom: 14px; }
+        .form-row.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+        .form-row label {
+            display: block;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4b4f6b;
+            margin-bottom: 6px;
+        }
+
+        .form-row input,
+        .form-row textarea {
+            width: 100%;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            border: 1px solid #e0e2f0;
+            border-radius: 9px;
+            padding: 10px 12px;
+            box-sizing: border-box;
+            color: #14142b;
+        }
+
+        .form-row input:focus,
+        .form-row textarea:focus { outline: none; border-color: #3b6dff; }
+
+        .form-row textarea { resize: vertical; min-height: 70px; }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .btn-cancel {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            background: #f1f2f8;
+            color: #4b4f6b;
+            border: none;
+            border-radius: 9px;
+            padding: 10px 16px;
+            cursor: pointer;
+        }
+
+        .btn-save {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #3b6dff, #1d4ed8);
+            color: #fff;
+            border: none;
+            border-radius: 9px;
+            padding: 10px 18px;
+            cursor: pointer;
+        }
+
+        .form-error {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: #e0405a;
+            margin-bottom: 12px;
+            display: none;
+        }
+    </style>
+</head>
+<body class="home-body">
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="feed.html" class="nav-logo">
+            <div class="logo-mark small">
+                <svg width="18" height="18" viewBox="0 0 28 28" fill="none">
+                    <path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    <path d="M14 7L21 11V18L14 22L7 18V11L14 7Z" fill="currentColor" opacity="0.15"/>
+                    <circle cx="14" cy="14" r="3" fill="currentColor"/>
+                </svg>
+            </div>
+            <span class="nav-brand">FORSA CAMPUS</span>
+        </a>
+
+       <div class="nav-links">
+    <a href="feed.html" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 12L12 3l9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Accueil</span>
+    </a>
+
+    <a href="search-internships.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Stages</span>
+    </a>
+
+    <a href="post.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Post</span>
+    </a>
+
+    <a href="parcours.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 4.5-9 4.5-9-4.5 9-4.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M6 9.5V15c0 1.5 2.5 3 6 3s6-1.5 6-3V9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span>Mon parcours</span>
+    </a>
+</div>
+
+        <div class="nav-user" id="userMenu">
+            <div class="avatar-sm" id="navAvatar">?</div>
+            <span id="user" class="nav-username"></span>
+            <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="dropdown">
+                <a href="profile.html" class="dropdown-item">
+                    <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M4 17c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                    View profile
+                </a>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item danger" onclick="logout()">
+                    <svg viewBox="0 0 20 20" fill="none"><path d="M13 15l3-3-3-3M16 12H7M10 5H5a1 1 0 00-1 1v8a1 1 0 001 1h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Sign out
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="dash-layout">
+
+    <aside class="sidebar-left">
+        <div class="profile-card">
+            <div class="profile-banner"></div>
+            <div class="profile-info">
+                <div class="avatar-lg" id="sideAvatar">?</div>
+                <h3 id="sidebarName">—</h3>
+                <p id="sidebarRole" class="profile-role">Étudiant</p>
+            </div>
+        </div>
+    </aside>
+
+    <section>
+        <div class="panel">
+            <div class="panel-header">
+                <div>
+                    <h2>Mon parcours universitaire</h2>
+                    <p>Vos diplômes et formations, dans l'ordre qui vous représente le mieux.</p>
+                </div>
+                <button class="btn-add" onclick="openParcoursForm()">+ Ajouter</button>
+            </div>
+            <div id="parcoursList"></div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <div>
+                    <h2>Mon CV</h2>
+                    <p>Le CV joint sera proposé automatiquement lors de vos candidatures.</p>
+                </div>
+            </div>
+            <div class="cv-box">
+                <div class="cv-info" id="cvInfo">Aucun CV ajouté pour l'instant.</div>
+                <div class="cv-actions">
+                    <a id="cvViewLink" class="btn-cv-link" style="display:none;" target="_blank">Voir le CV</a>
+                    <label class="cv-upload-label">
+                        Téléverser un CV
+                        <input type="file" id="cvInput" accept=".pdf,.doc,.docx" style="display:none" onchange="uploadCv()">
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Add/Edit parcours modal -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+        <h3 id="modalTitle">Ajouter une formation</h3>
+        <p class="form-error" id="formError">Université et établissement sont obligatoires.</p>
+        <form id="parcoursForm" onsubmit="submitParcours(event)">
+            <input type="hidden" id="parcoursId">
+
+            <div class="form-row">
+                <label for="universite">Université</label>
+                <input type="text" id="universite" placeholder="ex: Université de Tunis" required>
+            </div>
+
+            <div class="form-row">
+                <label for="etablissement">Établissement</label>
+                <input type="text" id="etablissement" placeholder="ex: ISET Tunis" required>
+            </div>
+
+            <div class="form-row">
+                <label for="specialite">Spécialité</label>
+                <input type="text" id="specialite" placeholder="ex: Génie logiciel">
+            </div>
+
+            <div class="form-row two-col">
+                <div>
+                    <label for="dateEntree">Date d'entrée</label>
+                    <input type="date" id="dateEntree">
+                </div>
+                <div>
+                    <label for="dateSortie">Date de sortie</label>
+                    <input type="date" id="dateSortie">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="closeParcoursForm()">Annuler</button>
+                <button type="submit" class="btn-save">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="js/parcours.js"></script>
+</body>
+</html>
