@@ -447,11 +447,9 @@
 
 
 <script>
-    // الدالة اللي ترسم الجدول
     function renderCandidates(candidates) {
         const tbody = document.getElementById('candidatesList');
         
-        // إذا كان ما فماش حتى طلب (Empty state)
         if (candidates.length === 0) {
             tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">No applications found yet.</td></tr>';
             return;
