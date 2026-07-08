@@ -9,7 +9,9 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
     role ENUM('etudiant', 'entreprise', 'admin'),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    reset_token VARCHAR(255),
+    reset_token_expiry DATETIME
 );
 
 -- STUDENT PROFILE
