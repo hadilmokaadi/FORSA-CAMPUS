@@ -2,3 +2,5 @@ Flask
 flask-mysqldb
 flask-cors
 Werkzeug
+flask-mail 
+itsdangerous

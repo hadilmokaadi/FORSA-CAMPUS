@@ -229,3 +229,66 @@ input:focus {
 @media (max-width: 380px) {
     .field-row { grid-template-columns: 1fr; }
 }
+/* ─── Forgot / Reset Password Pages ─────────────────── */
+
+.auth-link {
+    text-align: center;
+    font-size: .85rem;
+    color: var(--muted);
+    margin-top: 24px;
+}
+
+.auth-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity .15s;
+}
+
+.auth-link a:hover {
+    opacity: .75;
+}
+
+
+/* Forgot password icon input adjustment */
+.forgot-input input {
+    padding-left: 14px;
+}
+
+
+/* Success message */
+.msg.success {
+    color: #16a34a;
+}
+
+
+/* Password reset page spacing */
+.reset-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+/* Password strength / hint text */
+.password-hint {
+    font-size: .75rem;
+    color: var(--muted);
+    margin-top: 5px;
+}
+
+
+/* Loading state */
+.btn-login.loading {
+    opacity: .7;
+    cursor: wait;
+}
+
+
+/* Mobile adjustment */
+@media (max-width:480px) {
+
+    .card {
+        max-width: 100%;
+    }
+
+}
