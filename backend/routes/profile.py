@@ -31,7 +31,19 @@ def get_profile():
     user_id = session["user_id"]
     cur = mysql.connection.cursor()
 
-    cur.execute("SELECT id, nom, prenom, email, role FROM users WHERE id=%s", (user_id,))
+    cur.execute("""
+    SELECT sp.university,
+           sp.degree,
+           sp.field_of_study,
+           sp.graduation_year,
+           sp.phone,
+           sp.bio,
+           sp.photo,
+           c.chemin_fichier
+    FROM student_profiles sp
+    LEFT JOIN cv c ON c.user_id = sp.user_id
+    WHERE sp.user_id=%s
+""", (user_id,))
     user = cur.fetchone()
 
     if not user:
@@ -209,28 +221,53 @@ def upload_profile_cv():
         return jsonify({"message": "Fichier vide"}), 400
 
     if not allowed_cv(file.filename):
-        return jsonify({"message": "Format non autorisé (pdf, doc, docx uniquement)"}), 400
+        return jsonify({
+            "message": "Format non autorisé (pdf, doc, docx uniquement)"
+        }), 400
 
     filename = secure_filename(file.filename)
     cv_filename = f"cv_{user_id}_{filename}"
+
     file.save(os.path.join(UPLOAD_FOLDER, cv_filename))
 
     cur = mysql.connection.cursor()
-    cur.execute("SELECT id FROM student_profiles WHERE user_id=%s", (user_id,))
-    exists = cur.fetchone()
 
-    if exists:
-        cur.execute("UPDATE student_profiles SET cv=%s WHERE user_id=%s", (cv_filename, user_id))
+    cur.execute(
+        "SELECT id FROM cv WHERE user_id=%s",
+        (user_id,)
+    )
+
+    existing_cv = cur.fetchone()
+
+    if existing_cv:
+        cur.execute("""
+            UPDATE cv
+            SET nom_fichier=%s,
+                chemin_fichier=%s
+            WHERE user_id=%s
+        """, (
+            filename,
+            f"uploads/{cv_filename}",
+            user_id
+        ))
     else:
-        cur.execute(
-            "INSERT INTO student_profiles (user_id, cv) VALUES (%s, %s)",
-            (user_id, cv_filename)
-        )
+        cur.execute("""
+            INSERT INTO cv
+            (user_id, nom_fichier, chemin_fichier)
+            VALUES (%s, %s, %s)
+        """, (
+            user_id,
+            filename,
+            f"uploads/{cv_filename}"
+        ))
 
     mysql.connection.commit()
     cur.close()
 
-    return jsonify({"message": "CV mis à jour", "cv": cv_filename}), 200
+    return jsonify({
+        "message": "CV mis à jour",
+        "cv": f"uploads/{cv_filename}"
+    }), 200
 
 
 # =========================
@@ -241,7 +278,19 @@ def view_profile(user_id):
 
     cur = mysql.connection.cursor()
 
-    cur.execute("SELECT id, nom, prenom, email, role FROM users WHERE id=%s", (user_id,))
+    cur.execute("""
+    SELECT sp.university,
+           sp.degree,
+           sp.field_of_study,
+           sp.graduation_year,
+           sp.phone,
+           sp.bio,
+           sp.photo,
+           c.chemin_fichier
+    FROM student_profiles sp
+    LEFT JOIN cv c ON c.user_id = sp.user_id
+    WHERE sp.user_id=%s
+""", (user_id,))
     user = cur.fetchone()
 
     if not user:
